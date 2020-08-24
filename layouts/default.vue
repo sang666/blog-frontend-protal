@@ -1,6 +1,35 @@
 <template>
   <div id="blog-box">
-    <div class="blog-header clear-fix default-border-radius">
+
+    <Row class="blog-header clear-fix default-border-radius">
+      <Col :xs="0" :sm="4" :md="6" :lg="4">
+        <div class="logo-box float-left">
+          <div class="logo">
+            san-blog
+          </div>
+        </div>
+      </Col>
+      <Col :xs="24" :sm="16" :md="12" :lg="16">
+        <div class="navigation-box float-fight">
+          <nuxt-link to="/">
+            <span><i class="sob_blog sobhome"></i>首页</span>
+          </nuxt-link>
+          <nuxt-link to="about">
+            <span><i class="sob_blog sobabout_line"></i>关于</span>
+          </nuxt-link>
+          <nuxt-link to="link">
+            <span><i class="sob_blog soblink"></i>友链</span>
+          </nuxt-link>
+        </div>
+      </Col>
+      <Col :xs="0" :sm="4" :md="6" :lg="4">
+        <div class="login-tips-text-box float-fight">
+          <span><i class="sob_blog sobfingermap "></i>登录</span>
+          <span><i class="sob_blog sobmembers-add"></i>注册</span>
+        </div>
+      </Col>
+    </Row>
+    <!--<div class="blog-header clear-fix default-border-radius">
       <div class="logo-box float-left">
         <div class="logo">
           san-blog
@@ -8,18 +37,25 @@
 
       </div>
       <div class="login-tips-text-box float-fight">
-        登录|注册
+        <span><i class="sob_blog sobfingermap "></i>登录</span>
+        <span><i class="sob_blog sobmembers-add"></i>注册</span>
       </div>
       <div class="navigation-box float-fight">
-        <span>首页</span>
-        <span>关于</span>
-        <span>友链</span>
+        <nuxt-link to="/">
+          <span><i class="sob_blog sobhome"></i>首页</span>
+        </nuxt-link>
+        <nuxt-link to="/about">
+          <span><i class="sob_blog sobabout_line"></i>关于</span>
+        </nuxt-link>
+        <nuxt-link to="/link">
+          <span><i class="sob_blog soblink"></i>友链</span>
+        </nuxt-link>
       </div>
 
       <div class="user-info-box float-fight" style="display: none">
         用户信息
       </div>
-    </div>
+    </div>-->
     <Nuxt />
     <div class="blog-footer">
       <div class="copy-fight-box">
@@ -40,6 +76,7 @@
 </template>
 
 <style>
+
 
   .logo-box{
     margin-left: 10px;
@@ -71,10 +108,14 @@
     margin-top: 20px;
   }
   body{
-    background: #f2f2fa;
+    background: #F4F6F7;
   }
   #blog-box{
+    width: 96%;
+/*
     width: 1140px;
+*/
+
     margin: 0 auto;
   }
   .float-left{
@@ -93,19 +134,28 @@
     font-size: 16px;
   }
   .navigation-box {
-    margin-right: 50px;
+    margin-right: 5%;
 
   }
   .navigation-box span{
-    margin-right: 40px;
+    margin-right: 20px;
     color: #737f90;
     cursor: pointer;
     font-size: 18px;
   }
-  .navigation-box span:hover{
-    color: 74818e;
+  .navigation-box span:hover, .login-tips-text-box span:hover{
+    color: #74818e;
   }
   .default-border-radius{
     border-radius: 4px;
+  }
+
+  .navigation-box i{
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .login-tips-text-box span{
+    margin-right:  10px;
+    cursor: pointer;
   }
 </style>

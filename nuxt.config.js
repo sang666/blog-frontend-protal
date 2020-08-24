@@ -29,14 +29,23 @@ export default {
   ** Global CSS
   */
   css: [
-    'view-design/dist/styles/iview.css'
+    'view-design/dist/styles/iview.css',
+    '@/assets/icon/iconfont.css'
   ],
   /*
   ** Plugins to load before mounting the App
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
-    '@/plugins/view-design'
+
+    {
+      src:'@/plugins/view-design',
+      ssr:true
+    },
+    {
+      src:'@/plugins/word-cloud',
+      ssr:false
+    }
   ],
   /*
   ** Auto import components
@@ -52,7 +61,15 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy'
   ],
+  proxy: {
+    '/portal': {
+      target: 'http://localhost:8004',
+
+    }
+  },
   /*
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/

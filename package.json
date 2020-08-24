@@ -9,8 +9,11 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.12.1",
+    "@nuxtjs/proxy": "^2.0.1",
     "nuxt": "^2.14.0",
-    "view-design": "^4.3.2"
+    "view-design": "^4.3.2",
+    "vue-wordcloud": "^1.1.1"
   },
   "devDependencies": {}
 }
