@@ -20,12 +20,20 @@
           <nuxt-link to="link">
             <span><i class="sob_blog soblink"></i>友链</span>
           </nuxt-link>
+            <span @click="toSearch"><Icon type="ios-search" size="24" />搜索</span>
+
         </div>
       </Col>
       <Col :xs="0" :sm="4" :md="6" :lg="4">
         <div class="login-tips-text-box float-fight">
-          <span><i class="sob_blog sobfingermap "></i>登录</span>
-          <span><i class="sob_blog sobmembers-add"></i>注册</span>
+          <nuxt-link to="login">
+            <span class="link-item"><i class="sob_blog sobfingermap "></i>登录</span>
+          </nuxt-link>
+          <nuxt-link to="register">
+            <span class="link-item"><i class="sob_blog sobmembers-add"></i>注册</span>
+          </nuxt-link>
+
+
         </div>
       </Col>
     </Row>
@@ -74,6 +82,15 @@
     </div>
   </div>
 </template>
+<script>
+  export default {
+    methods: {
+      toSearch() {
+        location.href="/search"
+      }
+    },
+  }
+</script>
 
 <style>
 
@@ -128,6 +145,16 @@
   .clear-fix{
     overflow: hidden;
     zoom: 1;
+  }
+  .login-tips-text-box .link-item:hover{
+    color: dodgerblue;
+    margin-right: 10px;
+    font-size: 16px;
+  }
+  .login-tips-text-box .link-item{
+    color: #737f90;
+    margin-right: 10px;
+    font-size: 16px;
   }
   .login-tips-text-box{
     margin-right: 10px;

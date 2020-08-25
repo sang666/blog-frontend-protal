@@ -70,3 +70,11 @@ export const getLinkList=()=>{
   }
   return request.requestGet(baseUrl+`/portal/web_site_info/friend_link`)
 }
+
+export const searchArticles=(current,limit,keyword)=>{
+  /*if (process.client) {
+    return request.requestGet(`/portal/search/${current}/${limit}?keyword=${keyword}`)
+
+  }*/
+  return request.requestGet(baseUrl+`/portal/search?keyword=${encodeURI(keyword)}&page=${current}&size=${limit}`)
+}

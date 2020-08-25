@@ -24,7 +24,7 @@
               <span class="sob_blog soblink"></span>
             </div>
             <div class="left-categories-box">
-              <div class="categories-item default-border-radius" v-for="(item,index) in categories" :key="index">
+              <div  :class="currentCategoryId===item.id?'categories-item-active default-border-radius': 'categories-item default-border-radius'" v-for="(item,index) in categories" :key="index">
                 <span v-text="item.name" @click="listArcitleByCategoryId(item)"></span>
               </div>
             </div>
@@ -114,7 +114,7 @@
               内容搜索
             </div>
             <div class="card-content">
-              <Input v-model="keyword" icon="ios-search-outline" placeholder="你有什么想搜索的吗" style="width: 80%;margin: 20px;" />
+              <Input v-model="keyword" @keyup.enter.native="toSearchPage" icon="ios-search-outline" placeholder="你有什么想搜索的吗" style="width: 80%;margin: 20px;" />
             </div>
           </div>
 
@@ -125,18 +125,7 @@
           </div>
           <div class="card-content">
             <div class="labels-list-box">
-              <client-only>
-                <wordcloud
-                  :data="defaultWords"
-                  nameKey="name"
-                  :rotate="rotate"
-                  :fontSize="fontsize"
-                  :margin="margin"
-                  valueKey="count"
-                  :showTooltip="false"
-                  :wordClick="wordClickHandler">
-                </wordcloud>
-              </client-only>
+              <WorldCloud></WorldCloud>
 
             </div>
 
@@ -166,14 +155,28 @@ export default {
       speed:4000,
       pageSize:8,
       keyword:'',
-      fontsize:[20,50],
-      rotate:{from: 0, to: 0, numOfOrientation: 5 },
-      margin:{top: 0, right: 0, bottom: 0, left: 10 },
-      defaultWords: [],
       currentCategoryId:''
     }
   },
   methods: {
+
+    toSearchPage(){
+      this.keyword = this.keyword.trim();
+      if (this.keyword==='') {
+        return;
+      }
+      location.href="/search?keyword="+encodeURIComponent(this.keyword)
+
+      //siu跳转到搜索页面
+      /*this.$router.push({
+        path:'/search',
+        query:{
+          keyword: encodeURIComponent(this.keyword),
+          page: 1,
+          size: 8
+        }
+      });*/
+    },
     listArcitleByCategoryId(item){
       this.spinShow=true
       console.log(item);
@@ -204,17 +207,7 @@ export default {
       }
     },
 
-    listLabels(){
-      api.getLabels(20).then(resp=>{
-        if (resp.code === api.success_code) {
-          this.defaultWords = resp.data.rows
 
-        }
-      })
-    },
-    wordClickHandler(name,value,vm){
-
-    },
     changepage(page) {
       this.spinShow=true
 
@@ -232,7 +225,7 @@ export default {
     }
   },
   mounted() {
-    this.listLabels();
+
 
   },
 
@@ -349,10 +342,13 @@ export default {
     height: 300px;
     border-radius: 4px;
   }
-  .left-categories-box .categories-item:hover{
-    background: #f5f5f5;
+
+  .left-categories-box .categories-item:hover,
+  .left-categories-box .categories-item-active{
+    color: #999999 !important;
+    background: #f5f5f5 ;
   }
-  .left-categories-box .categories-item{
+  .left-categories-box .categories-item, .left-categories-box .categories-item-active{
     padding: 10px 5px;
     cursor: pointer;
     color: #999999;
