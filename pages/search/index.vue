@@ -108,7 +108,7 @@
           if (this.keyword==='') {
             return;
           }
-          location.href="/search?keyword="+encodeURIComponent(this.keyword)
+          location.href="/search?keyword="+encodeURI(this.keyword)
 
         },
       },

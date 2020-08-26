@@ -25,16 +25,35 @@
         </div>
       </Col>
       <Col :xs="0" :sm="4" :md="6" :lg="4">
-        <div class="login-tips-text-box float-fight">
-          <nuxt-link to="login">
+        <div  class="login-tips-text-box float-fight" v-if="userInfo===null">
+          <a :href="'/login?redirect='+redirectPath">
             <span class="link-item"><i class="sob_blog sobfingermap "></i>登录</span>
-          </nuxt-link>
+          </a>
           <nuxt-link to="register">
             <span class="link-item"><i class="sob_blog sobmembers-add"></i>注册</span>
           </nuxt-link>
+        </div>
 
+        <div class="user-info clear-fix" v-if="userInfo!==null">
+          <div class="head-user-avatar float-left">
+            <img :src="userInfo.avatar" style="object-fit: cover">
+          </div>
+          <div class="user-info-select float-fight">
+            <Dropdown @on-click="changeMenu" :transfer="true">
+              <a href="javascript:void(0)">
+                {{userInfo.userName}}
+                <Icon type="ios-arrow-down"></Icon>
+              </a>
+              <DropdownMenu slot="list" >
+                <DropdownItem name="userInfo">用户信息</DropdownItem>
+                <DropdownItem name="manage" v-if="userInfo.roles==='role_admin'">管理中心</DropdownItem>
+                <DropdownItem name="logout">退出登录</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
 
         </div>
+
       </Col>
     </Row>
     <!--<div class="blog-header clear-fix default-border-radius">
@@ -83,16 +102,83 @@
   </div>
 </template>
 <script>
+  import * as api from '../api/api'
   export default {
-    methods: {
-      toSearch() {
-        location.href="/search"
+    data() {
+      return {
+        redirectPath:'',
+        userInfo: null
       }
     },
+    methods: {
+      changeMenu(name){
+        if (name === 'logout') {
+          this.$Message.success('你点了logout')
+          api.doLogout().then(resp=>{
+            if (resp.code === api.success_code) {
+              //跳转到登录页面
+              location.href="/login"
+            }
+          })
+        }
+        if (name === 'userInfo') {
+          this.$Message.success('你点了userInfo')
+          location.href="/userInfo"
+        }
+        if (name === 'manage') {
+          this.$Message.success('你点了manage')
+          location.href='http://localhost:8080/#/index'
+        }
+      },
+      toSearch() {
+        location.href="/search"
+
+      },
+      checkToken(){
+        api.getLoginInfo().then(resp=>{
+          if (resp.code === 20020) {
+            this.userInfo = resp.data.user
+          }
+        })
+      }
+    },
+    mounted() {
+      console.log(this.userInfo);
+      this.checkToken()
+
+        this.redirectPath =location.href
+
+
+    }
   }
 </script>
 
 <style>
+  .user-info{
+    text-align: center;
+  }
+
+  .user-info-select{
+margin-right: 35px;
+      width: 70%;
+
+  }
+  .head-user-avatar{
+    width: 30px;
+    height: 30px;
+    margin-top: 0;
+
+  }
+
+  .head-user-avatar img{
+    width: 30px;
+    height: 30px;
+
+
+    border-radius: 50%;
+
+  }
+
 
 
   .logo-box{
@@ -128,6 +214,7 @@
     background: #F4F6F7;
   }
   #blog-box{
+
     width: 96%;
 /*
     width: 1140px;

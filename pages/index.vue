@@ -165,7 +165,7 @@ export default {
       if (this.keyword==='') {
         return;
       }
-      location.href="/search?keyword="+encodeURIComponent(this.keyword)
+      location.href="/search?keyword="+encodeURI(this.keyword)
 
       //siu跳转到搜索页面
       /*this.$router.push({

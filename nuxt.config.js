@@ -68,6 +68,10 @@ export default {
     '/portal': {
       target: 'http://localhost:8004',
 
+    },
+    '/biz': {
+      target: 'http://localhost:8004',
+
     }
   },
   /*

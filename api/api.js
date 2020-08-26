@@ -78,3 +78,19 @@ export const searchArticles=(current,limit,keyword)=>{
   }*/
   return request.requestGet(baseUrl+`/portal/search?keyword=${encodeURI(keyword)}&page=${current}&size=${limit}`)
 }
+export const doLogin=(verifyCode,captcha_key,user)=>{
+
+  return request.requestPost(`/biz/user/login/${verifyCode}/${captcha_key}?from=p_`,user)
+}
+
+
+export const getLoginInfo=()=>{
+
+  return request.requestGet(`/biz/user/check-token`)
+}
+
+
+export const doLogout=()=>{
+
+  return request.requestGet(`/biz/user/logout`)
+}

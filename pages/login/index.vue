@@ -14,7 +14,7 @@
                   </Input>
                 </FormItem>
                 <FormItem >
-                  <Input type="password" v-model="user.password" placeholder="密码">
+                  <Input type="password" v-model="originalPasswrod" placeholder="密码">
                     <Icon type="ios-lock-outline" slot="prepend"></Icon>
                   </Input>
                 </FormItem>
@@ -24,10 +24,12 @@
                     <Icon type="ios-send-outline" slot="prepend"></Icon>
                   </Input>
                 </FormItem>
-                <FormItem>
+                <FormItem class="login-button-box">
                   <img :src="captchaPath" @click="updateVerifyCode" class="captcha-code float-left">
-                  <Button  class="login-button float-fight" size="large"  @click="handleSubmit">登录</Button>
+                  <Button  class="login-button float-left" size="large"  @click="doLogin">登录</Button>
+                  <div class="forget-box float-fight"><span><a href="/forget">忘记密码?</a></span></div>
                 </FormItem>
+
               </Form>
             </div>
 
@@ -43,14 +45,18 @@
 </template>
 
 <script>
-    export default {
+  import {hex_md5} from "../../utils/md5";
+  import * as api from '../../api/api'
+  export default {
         name: "index",
       data() {
         return {
+          isCommiting:false,
           user: {
             userName:'',
             password:''
           },
+          originalPasswrod:'',
           loginInfo:{
             verifyCode:'',
             from:'p_',
@@ -61,6 +67,49 @@
         }
       },
       methods: {
+        doLogin(){
+          //检查数据
+          if (this.user.userName === '') {
+            this.$Message.warning('用户名不能为空');
+            return
+          }
+          if (this.originalPasswrod === '') {
+            this.$Message.warning('密码不能为空');
+            return
+          }
+          if (this.loginInfo.verifyCode === '') {
+            this.$Message.warning('验证码不能为空');
+            return
+          }
+          if (this.isCommiting) {
+            return;
+          }
+          this.isCommiting = true;
+          this.user.password=hex_md5(this.originalPasswrod)
+          api.doLogin(this.loginInfo.verifyCode,this.loginInfo.captcha_key,this.user).then(resp=>{
+            this.isCommiting=false
+            //如果成功则跳转---判断角色，如果是普通用户，跳转到门户页，如果是管理员，跳转到管理中心
+
+            if (resp.code === api.success_code) {
+              this.$Message.success(resp.message)
+              //todo:需要判断角色
+              //this.$router.push({path:'/index'});
+              //从地址中获取到redirect
+              let redirect = this.$route.query.redirect
+              if (redirect) {
+                location.href = redirect
+              }else {
+                location.href = "/"
+              }
+            }else{
+              this.updateVerifyCode();
+              this.$Message.error(resp.message)
+            }
+          })
+          //防止重复提交
+          //提交数据
+          //处理结果
+        },
         handleSubmit(name) {
           this.$refs[name].validate((valid) => {
             if (valid) {
@@ -72,7 +121,7 @@
         },
 
         updateVerifyCode(){
-          this.captchaPath = 'http://localhost:8004/biz/user/captcha?captcha_key='+this.loginInfo.captcha_key+"&random="+Date.parse(new Date());
+          this.captchaPath = '/biz/user/captcha?captcha_key='+this.loginInfo.captcha_key+"&random="+Date.parse(new Date());
 
         }
       },
@@ -87,7 +136,15 @@
 </script>
 
 <style >
+  .forget-box{
+    margin-top: 10px;
+  }
+  .login-button-box{
+    text-align: center;
+  }
+
   .login-button{
+    margin-left: 25%;
     margin-top: 7px;
   }
   .captcha-code{
