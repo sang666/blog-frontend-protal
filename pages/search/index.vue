@@ -153,7 +153,7 @@
   .input-box-item {
 /*
     margin-left: 20px;
-*/   margin-left: 4px;
+*/
     width: 95%;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -229,7 +229,7 @@
 
   .search-right-part{
     border-radius: 4px;
-    margin-top: 42%;
+    margin-top: 32%;
     width: 100%;
     background: #fff;
 

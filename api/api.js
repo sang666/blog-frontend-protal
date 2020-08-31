@@ -94,3 +94,37 @@ export const doLogout=()=>{
 
   return request.requestGet(`/biz/user/logout`)
 }
+
+
+export const getVerifyCode=(email,type)=>{
+
+  return request.requestGet(`/biz/user/verify_code?email=${email}&type=${type}`)
+
+}
+
+
+export const checkUserName=(UserName)=>{
+
+  return request.requestGet(`/biz/user/userName?userName=${UserName}`)
+
+}
+
+export const register=(captcha_code,captcha_key,email_code,user)=>{
+
+  return request.requestPost(`/biz/user/join_in?captcha_code=${captcha_code}&captcha_key=${captcha_key}&email_code=${email_code}`,user)
+
+}
+
+
+export const updatePasswordByEmail=(captcha_code,captcha_key,email_code,email )=>{
+
+  return request.requestGet(`/biz/user/check_email_code?captcha_code=${captcha_code}&captcha_key=${captcha_key}&email_code=${email_code}&email=${email}`)
+
+}
+
+
+export const updatePassword=(verifyCode,user)=>{
+
+  return request.requestPut(`/biz/user/password/${verifyCode}`,user)
+
+}

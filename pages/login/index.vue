@@ -6,7 +6,11 @@
         </Col>
         <Col :xs="24" :sm="16" :md="12" :lg="14">
           <div class="login-box clear-fix">
+
             <div class="login-item">
+              <div class="login-title-box float-left">
+                <span class="login-title">登录</span>
+              </div>
               <Form    >
                 <FormItem >
                   <Input type="text" v-model="user.userName" placeholder="用户名">
@@ -136,6 +140,15 @@
 </script>
 
 <style >
+  .login-title-box{
+    margin-bottom: 40px;
+  }
+  .login-title{
+    margin-left: 40px;
+    font-size: 24px;
+
+    font-weight: 600;
+  }
   .forget-box{
     margin-top: 10px;
   }
