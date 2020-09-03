@@ -24,7 +24,9 @@
             </Col>-->
             <!--<Col :xs="24" :sm="24" :md="24" :lg="24">-->
             <div class="top-article-title">
-              <span class="top-title">{{item.title}}</span>
+              <span class="top-title">
+                <a :href="'/article/'+item.id">{{item.title}}</a>
+              </span>
             </div>
             <Row>
               <Col :xs="24" :sm="24" :md="24" :lg="24">
@@ -134,6 +136,12 @@
 </script>
 
 <style>
+  .top-article-title .top-title a{
+    color: #606060;
+  }
+  .top-article-title .top-title a:hover{
+    color: #a612ff;
+  }
   .right-card{
     width: 100%;
     border-radius: 4px;

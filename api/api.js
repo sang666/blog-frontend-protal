@@ -128,3 +128,10 @@ export const updatePassword=(verifyCode,user)=>{
   return request.requestPut(`/biz/user/password/${verifyCode}`,user)
 
 }
+
+
+export const getArticleDetail=(id)=>{
+
+  return request.requestGet(baseUrl+`/portal/Article/${id}`)
+
+}

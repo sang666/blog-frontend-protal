@@ -55,7 +55,9 @@
             <!--<Col :xs="24" :sm="24" :md="24" :lg="24">-->
               <div class="top-article-title">
                 <span class="top-tips">置顶</span>
-                <span class="top-title">{{item.title}}</span>
+                <span class="top-title">
+                  <a :href="'/article/'+item.id">{{item.title}}</a>
+                </span>
               </div>
             <Row>
               <Col :xs="24" :sm="24" :md="24" :lg="24">
@@ -84,7 +86,9 @@
               <Col :xs="24"  :lg="16">
                 <div>
                   <div class="top-article-title">
-                    <span class="top-title">{{item.title}}</span>
+                    <span class="top-title">
+                      <a :href="'/article/'+item.id">{{item.title}}</a>
+                    </span>
                   </div>
                   <div class="top-article-summary ">
                     <p>{{item.summary}}</p>
@@ -310,6 +314,12 @@ export default {
     background: #ff9900;
     font-size: 16px;
     color: #fff;
+  }
+  .top-article-title .top-title a{
+    color: #606060;
+  }
+  .top-article-title .top-title a:hover{
+    color: #a612ff;
   }
   .top-article-title .top-title{
     font-size: 24px;
