@@ -25,19 +25,19 @@
             <!--<Col :xs="24" :sm="24" :md="24" :lg="24">-->
             <div class="top-article-title">
               <span class="top-title">
-                <a :href="'/article/'+item.id">{{item.title}}</a>
+                <a :href="'/article/'+item.id" v-html="item.title"></a>
               </span>
             </div>
             <Row>
               <Col :xs="24" :sm="24" :md="24" :lg="24">
                 <div class="top-article-summary ">
                   <Tag class=" float-left" color="lime">摘要</Tag>
-                  <p style="margin-left: 10px">{{item.summary}}</p>
+                  <p style="margin-left: 10px" v-html="item.summary"></p>
                   </div>
 
                 <div class="top-article-summary">
                   <Tag class="float-left" color="geekblue">内容</Tag>
-                  <p v-html="item.content" class="content-box"></p>
+                  <div v-html="item.content" class="content-box"></div>
 
                 </div>
 
@@ -81,6 +81,7 @@
           <div class="card-title">
             热门标签
           </div>
+          <Divider></Divider>
           <div class="card-content">
             <div class="labels-list-box">
               <WorldCloud></WorldCloud>
@@ -136,11 +137,15 @@
 </script>
 
 <style>
+  .test-left{
+    width: 100%;
+    padding: 20px;
+  }
   .top-article-title .top-title a{
     color: #606060;
   }
   .top-article-title .top-title a:hover{
-    color: #a612ff;
+    color: #2D8CF0;
   }
   .right-card{
     width: 100%;
@@ -236,9 +241,10 @@
   }
 
   .search-right-part{
+    padding: 10px;
     border-radius: 4px;
     margin-top: 32%;
-    width: 100%;
+    width: 80%;
     background: #fff;
 
   }

@@ -72,10 +72,10 @@ export const getLinkList=()=>{
 }
 
 export const searchArticles=(current,limit,keyword)=>{
-  /*if (process.client) {
+  if (process.client) {
     return request.requestGet(`/portal/search/${current}/${limit}?keyword=${keyword}`)
 
-  }*/
+  }
   return request.requestGet(baseUrl+`/portal/search?keyword=${encodeURI(keyword)}&page=${current}&size=${limit}`)
 }
 export const doLogin=(verifyCode,captcha_key,user)=>{
@@ -132,6 +132,31 @@ export const updatePassword=(verifyCode,user)=>{
 
 export const getArticleDetail=(id)=>{
 
+
   return request.requestGet(baseUrl+`/portal/Article/${id}`)
+
+}
+
+
+export const getRecommentArticle=(id,size)=>{
+
+  return request.requestGet(baseUrl+`/portal/Article/recommend/${id}/${size}`)
+
+}
+
+
+export const getCommentsByArticleId=(articleId,current,limit)=>{
+  if (process.client) {
+    return request.requestGet(`/portal/comment/${articleId}/${current}/${limit}`)
+
+  }
+  return request.requestGet(baseUrl+`/portal/comment/${articleId}/${current}/${limit}`)
+
+}
+
+
+export const postComment=(comment)=>{
+
+  return request.requestPost(`/portal/comment/comment`,comment)
 
 }

@@ -117,6 +117,7 @@
             <div class="card-title">
               内容搜索
             </div>
+          <Divider></Divider>
             <div class="card-content">
               <Input v-model="keyword" @keyup.enter.native="toSearchPage" icon="ios-search-outline" placeholder="你有什么想搜索的吗" style="width: 80%;margin: 20px;" />
             </div>
@@ -127,6 +128,7 @@
           <div class="card-title">
             热门标签
           </div>
+          <Divider></Divider>
           <div class="card-content">
             <div class="labels-list-box">
               <WorldCloud></WorldCloud>
@@ -188,7 +190,7 @@ export default {
       this.pageNavigation.current = 1;
       this.currentCategoryId = item.id
       //请求数据
-      api.getArticles(this.currentCategoryId,this.pageNavigation.current,5).then(resp=>{
+      api.getArticles(this.currentCategoryId,this.pageNavigation.current,8).then(resp=>{
 
         if (resp.code === api.success_code) {
           this.Articles = resp.data.rows.records
@@ -241,7 +243,7 @@ export default {
     let TopArticles = await api.getTopArticles();
 
     //在服务端渲染的
-    let ArticleList = await api.getArticles('',1,4);
+    let ArticleList = await api.getArticles('',1,8);
 
     let pageNavigation = {
         current:ArticleList.data.rows.current,
@@ -271,6 +273,7 @@ export default {
 </script>
 
 <style>
+
   .test-left{
     width: 100%;
     padding: 20px;
@@ -282,6 +285,7 @@ export default {
 
   }
   .right-card{
+    padding: 10px;
     width: 100%;
     border-radius: 4px;
     background: #fff;
@@ -319,7 +323,7 @@ export default {
     color: #606060;
   }
   .top-article-title .top-title a:hover{
-    color: #a612ff;
+    color: #2D8CF0;
   }
   .top-article-title .top-title{
     font-size: 24px;
@@ -395,9 +399,12 @@ export default {
 
   .index-page-box{
 
+
     margin-top: 20px;
     margin-bottom: 20px;
   }
+
+
   /*1140px 24px 660 240*/
   .index-left-part{
     width: 100%;
@@ -408,7 +415,7 @@ export default {
   }
 
   .index-right-part{
-   height: 600px;
+
   }
   .index-center-part{
 

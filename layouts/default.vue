@@ -2,6 +2,7 @@
   <div id="blog-box">
 
     <Row class="blog-header clear-fix default-border-radius">
+
       <Col :xs="0" :sm="4" :md="6" :lg="4">
         <div class="logo-box float-left">
           <div class="logo">
@@ -11,16 +12,22 @@
       </Col>
       <Col :xs="24" :sm="16" :md="12" :lg="16">
         <div class="navigation-box float-fight">
-          <nuxt-link to="/">
+          <!--<nuxt-link to="/">
             <span><i class="sob_blog sobhome"></i>首页</span>
-          </nuxt-link>
-          <nuxt-link to="about">
+          </nuxt-link>-->
+
+          <a :href="'/'"><span><i class="sob_blog sobhome"></i>首页</span></a>
+          <!--<nuxt-link to="about">
             <span><i class="sob_blog sobabout_line"></i>关于</span>
-          </nuxt-link>
-          <nuxt-link to="link">
+          </nuxt-link>-->
+          <a :href="'/about'"><span><i class="sob_blog sobabout_line"></i>关于</span></a>
+          <!--<nuxt-link to="link">
             <span><i class="sob_blog soblink"></i>友链</span>
-          </nuxt-link>
-            <span @click="toSearch"><Icon type="ios-search" size="24" />搜索</span>
+          </nuxt-link>-->
+
+          <a :href="'/link'"><span><i class="sob_blog soblink"></i>友链</span></a>
+
+          <span @click="toSearch"><Icon type="ios-search" size="24" />搜索</span>
 
         </div>
       </Col>
@@ -56,6 +63,7 @@
 
       </Col>
     </Row>
+
     <!--<div class="blog-header clear-fix default-border-radius">
       <div class="logo-box float-left">
         <div class="logo">
@@ -99,6 +107,7 @@
 
       </div>
     </div>
+
   </div>
 </template>
 <script>
@@ -154,6 +163,12 @@
 </script>
 
 <style>
+
+  .test-header{
+    line-height: 30px;
+    margin-top: 20px;
+  }
+
   .user-info{
     text-align: center;
   }
@@ -197,6 +212,7 @@ margin-right: 35px;
     margin-bottom: 10px;
   }
   .blog-footer{
+    margin-top: 50px;
     padding-bottom: 30px;
     text-align: center;
   }
